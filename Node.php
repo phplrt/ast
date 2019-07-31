@@ -10,41 +10,42 @@ declare(strict_types=1);
 namespace Phplrt\Ast;
 
 use Phplrt\Contracts\Ast\NodeInterface;
-use Phplrt\Dumper\Dumper;
 
 /**
  * Class Node
  */
 abstract class Node implements NodeInterface
 {
+    use AttributesTrait;
+
     /**
      * @var string
      */
-    protected $name;
+    public const ATTR_OFFSET = 'offset';
 
     /**
      * @var int
      */
-    protected $offset;
+    private $type;
 
     /**
      * Node constructor.
      *
-     * @param string $name
-     * @param int $offset
+     * @param int $type
+     * @param array $attributes
      */
-    public function __construct(string $name, int $offset = 0)
+    public function __construct(int $type, array $attributes = [])
     {
-        $this->name   = $name;
-        $this->offset = $offset;
+        $this->type = $type;
+        $this->setAttributes($attributes);
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getName(): string
+    public function getType(): int
     {
-        return $this->name;
+        return $this->type;
     }
 
     /**
@@ -52,14 +53,14 @@ abstract class Node implements NodeInterface
      */
     public function getOffset(): int
     {
-        return $this->offset;
+        return (int)$this->getAttribute(self::ATTR_OFFSET, 0);
     }
 
     /**
-     * @return string
+     * @return \Traversable
      */
-    public function __toString(): string
+    public function getIterator(): \Traversable
     {
-        return Dumper::dump($this);
+        return new \EmptyIterator();
     }
 }
