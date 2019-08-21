@@ -5,7 +5,11 @@
     "license": "MIT",
     "keywords": [
         "ast",
-        "tree"
+        "tree",
+        "term",
+        "factor",
+        "leaf",
+        "node"
     ],
     "homepage": "https://github.com/phplrt",
     "support": {
@@ -20,12 +24,15 @@
     ],
     "require": {
         "php": ">=7.1.3",
-        "phplrt/ast-contracts": "2.0.*|2.0.x-dev"
+        "phplrt/ast-contracts": "~2.0"
     },
     "autoload": {
         "psr-4": {
             "Phplrt\\Ast\\": ""
         }
+    },
+    "require-dev": {
+        "symfony/var-dumper": "~4.0"
     },
     "provide": {
         "phplrt/ast-contracts-implementation": "2.0.0"
