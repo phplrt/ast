@@ -14,34 +14,22 @@ use Phplrt\Contracts\Ast\NodeInterface;
 /**
  * A simple AST node implementation.
  */
-final class TreeNode extends Node
+class TreeNode extends Node
 {
+    use ChildNodesTrait;
     use MutableAttributesTrait;
-
-    /**
-     * @var array|NodeInterface[]
-     */
-    protected $children = [];
-
-    /**
-     * Anonymous constructor.
-     *
-     * @param int $type
-     * @param int $offset
-     * @param array|NodeInterface[] $children
-     */
-    public function __construct(int $type, int $offset, array $children = [])
-    {
-        parent::__construct($type, [self::ATTR_OFFSET => $offset]);
-
-        $this->children = $children;
-    }
 
     /**
      * @return \Traversable|NodeInterface[]
      */
     public function getIterator(): \Traversable
     {
-        return new \ArrayIterator($this->children);
+        foreach ($this->getChildNodeNames() as $name) {
+            if (isset($this->$name)) {
+                yield $name => $this->$name;
+            } else {
+                yield $name => static::$$name;
+            }
+        }
     }
 }
