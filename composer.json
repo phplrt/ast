@@ -1,7 +1,7 @@
 {
     "name": "phplrt/ast",
     "type": "library",
-    "description": "The phplrt abstract syntax tree package.",
+    "description": "The phplrt AST package provides a set of basic implementations of AST nodes",
     "license": "MIT",
     "keywords": [
         "ast",
